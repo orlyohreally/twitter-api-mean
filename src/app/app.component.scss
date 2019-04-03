@@ -1,0 +1,13 @@
+:host {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  .mat-drawer-container {
+    height: 100%;
+
+    .page-content {
+      padding: 20px;
+    }
+  }
+}

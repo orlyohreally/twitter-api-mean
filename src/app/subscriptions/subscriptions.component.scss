@@ -1,0 +1,19 @@
+.subscriptions {
+  .action-buttons {
+    display: flex;
+    padding: 10px 0;
+  }
+  .channels {
+    display: flex;
+
+    .mat-card-avatar {
+      background-size: cover;
+    }
+
+    .mat-card-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

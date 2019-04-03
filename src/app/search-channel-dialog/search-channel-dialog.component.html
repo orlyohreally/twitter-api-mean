@@ -1,0 +1,37 @@
+<div class="search-channel">
+  <h1 mat-dialog-title>Search channel</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="search.text"
+        (ngModelChange)="this.searchTextUpdate.next($event)"
+      />
+      <button
+        mat-button
+        *ngIf="search.text"
+        matSuffix
+        placeholder="Search twitter channel"
+        mat-icon-button
+        aria-label="Clear"
+        (click)="onClean()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="channels">
+    <mat-list *ngFor="let channel of channels">
+      <mat-list-item
+        >{{ channel.name }}@{{ channel.screen_name }}</mat-list-item
+      >
+    </mat-list>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="closeDialog()">
+      Cancel
+    </button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+  </div>
+</div>
