@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { TwitterChannel } from './twitter-channel';
 
 @Injectable({
@@ -10,6 +10,13 @@ export class TwitterService {
   constructor(private http: HttpClient) {}
 
   search(query: string): Observable<TwitterChannel[]> {
-    return this.http.get<TwitterChannel[]>(`/search?=${query}`);
+    const params = new HttpParams().set('q', query);
+    return this.http.get<TwitterChannel[]>('/api/users/search', { params });
+  }
+
+  public getAvatarStyle(channel: TwitterChannel) {
+    return {
+      'background-image': `url(${channel.profile_image_url_https})`
+    };
   }
 }

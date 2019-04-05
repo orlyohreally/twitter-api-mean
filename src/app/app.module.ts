@@ -19,20 +19,23 @@ import {
   MatIconModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatMenuModule
+  MatMenuModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { SearchChannelDialogComponent } from './search-channel-dialog/search-channel-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { TwitterService } from './twitter.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     SearchChannelDialogComponent,
     NavbarComponent,
-    SubscriptionsComponent
+    SubscriptionsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { TwitterService } from './twitter.service';
     MatFormFieldModule,
     MatDialogModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     BrowserAnimationsModule
   ],

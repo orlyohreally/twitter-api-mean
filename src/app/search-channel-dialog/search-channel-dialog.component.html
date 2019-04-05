@@ -1,18 +1,27 @@
 <div class="search-channel">
-  <h1 mat-dialog-title>Search channel</h1>
+  <div class="dialog-header">
+    <h1 mat-dialog-title>Search channel</h1>
+    <mat-icon
+      class="clickable close-button"
+      aria-hidden="false"
+      (click)="closeDialog()"
+      >close</mat-icon
+    >
+  </div>
   <div mat-dialog-content>
     <mat-form-field>
       <input
         matInput
+        autocomplete="off"
         type="text"
+        placeholder="Search twitter channel by topical interest, full name, company name, location, or other criteria"
         [(ngModel)]="search.text"
-        (ngModelChange)="this.searchTextUpdate.next($event)"
+        (ngModelChange)="onTyping($event)"
       />
       <button
         mat-button
         *ngIf="search.text"
         matSuffix
-        placeholder="Search twitter channel"
         mat-icon-button
         aria-label="Clear"
         (click)="onClean()"
@@ -20,18 +29,34 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-  </div>
-  <div class="channels">
-    <mat-list *ngFor="let channel of channels">
-      <mat-list-item
-        >{{ channel.name }}@{{ channel.screen_name }}</mat-list-item
-      >
-    </mat-list>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="closeDialog()">
-      Cancel
-    </button>
-    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    <div
+      class="channels"
+      *ngIf="!errorMessage && !isLoading && search.text !== ''"
+    >
+      <mat-list *ngIf="hasResult">
+        <mat-list-item *ngFor="let channel of channels">
+          <div class="channel clickable" (click)="subscribe(channel)">
+            <div
+              class="channel-avatar"
+              mat-card-avatar
+              [ngStyle]="getAvatarStyle(channel)"
+            ></div>
+            <div class="channel-fullname">
+              {{ channel.name }}@{{ channel.screen_name }}
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <div *ngIf="!hasResult">
+        No channels were found
+      </div>
+    </div>
+    <div *ngIf="errorMessage && !isLoading" class="message danger">
+      {{ errorMessage }}
+    </div>
+    <div class="loader" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
   </div>
 </div>

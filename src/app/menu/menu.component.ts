@@ -10,6 +10,9 @@ export class MenuComponent implements OnInit {
   navItems: any[];
 
   ngOnInit() {
-    this.navItems = [{ displayName: 'Subscriptions', link: 'subscriptions' }];
+    this.navItems = [
+      { displayName: 'Dashboard', link: '' },
+      { displayName: 'Subscriptions', link: 'subscriptions' }
+    ];
   }
 }

@@ -5,9 +5,12 @@
   }
   .channels {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 
-    .mat-card-avatar {
-      background-size: cover;
+    .channel {
+      margin: 10px;
+      height: 120px;
     }
 
     .mat-card-actions {

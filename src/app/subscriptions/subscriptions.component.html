@@ -1,20 +1,26 @@
 <div class="subscriptions">
-  <h1>Subscriptions</h1>
+  <h1 class=".mat-h1">Subscriptions</h1>
   <div class="action-buttons">
     <button mat-raised-button color="primary" (click)="searchChannel()">
       Add new channel
     </button>
   </div>
   <div class="channels">
-    <mat-card *ngFor="let channel of subscriptions">
+    <mat-card class="channel" *ngFor="let subscription of subscriptions">
       <mat-card-header>
-        <div mat-card-avatar [ngStyle]="getAvatarStyle(channel)"></div>
-        <mat-card-title>{{ channel.name }}</mat-card-title>
-        <mat-card-subtitle>{{ channel.name }}</mat-card-subtitle>
+        <div
+          mat-card-avatar
+          class="channel-avatar"
+          [ngStyle]="getAvatarStyle(subscription.channel)"
+        ></div>
+        <mat-card-title>{{ subscription.channel.name }}</mat-card-title>
+        <mat-card-subtitle
+          >@{{ subscription.channel.screen_name }}</mat-card-subtitle
+        >
       </mat-card-header>
       <mat-card-content>
         <p>
-          {{ channel.description }}
+          {{ subscription.channel.description }}
         </p>
       </mat-card-content>
       <mat-card-actions>
@@ -22,9 +28,17 @@
           mat-raised-button
           color="primary"
           mat-button
-          (click)="follow(channel)"
+          (click)="activate(subscription)"
         >
           Follow
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          mat-button
+          (click)="remove(subscription)"
+        >
+          Unsubscribe
         </button>
       </mat-card-actions>
     </mat-card>
