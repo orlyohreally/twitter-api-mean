@@ -16,14 +16,15 @@ module.exports.usersSearch = function(req, res) {
   });
 };
 
-module.exports.webhooks = function(crc_token, consumer_secret) {
-  console.log("webhooks", twitter.client);
-  hmac = crypto
-    .createHmac("sha256", consumer_secret)
-    .update(crc_token)
-    .digest("base64");
-
-  return hmac;
+module.exports.webhooks = function(req, res) {
+  console.log(req.query.crc_token);
+  var hmac = crypto.createHmac(
+    "sha256",
+    twitter.client.options.consumer_secret
+  );
+  var reqQuery = req.query;
+  hmac.update(reqQuery.crc_token);
+  res.status(200).send({ response_token: "sha256=" + hmac.digest("base64") });
 };
 
 // module.exports.timeline = function(req, res) {
