@@ -17,6 +17,7 @@ module.exports.usersSearch = function(req, res) {
 
 module.exports.webhooks = function(req, res) {
   console.log("webhooks", req.query);
+  res.status(200).json({ status: "success" });
 };
 
 // module.exports.timeline = function(req, res) {
