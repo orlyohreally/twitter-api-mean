@@ -1,0 +1,24 @@
+:host-context(.page-content) {
+  background: red;
+}
+.dashboard {
+  .timelines-wrapper {
+    // position: relative;
+    .timelines {
+      display: flex;
+      justify-content: flex-start;
+      // top: 0;
+      // bottom: 0;
+      width: 100%;
+      height: 100%;
+      // position: absolute;
+
+      .timeline {
+        width: 300px;
+        overflow-y: scroll;
+        height: 100%;
+        padding: 5px;
+      }
+    }
+  }
+}

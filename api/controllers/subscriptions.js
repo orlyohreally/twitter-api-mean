@@ -18,41 +18,24 @@ module.exports.create = function(req, res) {
 
 var ctrlTwitter = require("./twitter-api");
 module.exports.timelines = function(req, res) {
-  console.log("timelines module");
-  new Promise(function(resolve, reject) {
-    client.get(
-      "statuses/user_timeline",
-      { screen_name: "orlyohreally" },
-      function(err, timeline, response) {
-        console.log("getTimeline");
-        return resolve(timeline);
-      }
-    );
-  }).then(function(values) {
-    console.log("values", values);
-    // console.log(timelines);
-    console.log("json");
-    res.status(200).json(values);
+  var timelinePromises = [];
+  var timelines = [];
+  Subscription.find().exec(function(err, subscriptions) {
+    subscriptions.forEach(subscription => {
+      timelinePromises.push(
+        ctrlTwitter
+          .getTimeline(subscription.channel.screen_name)
+          .then(function(tweets) {
+            return Promise.resolve({
+              channel: subscription.channel,
+              tweets: tweets
+            });
+          })
+      );
+    });
+
+    Promise.all(timelinePromises).then(function(values) {
+      res.status(200).json(values);
+    });
   });
-  //promiseTimeline;
-  // var timelines = [];
-  // var timelinePromises = [];
-  // Subscription.find().exec(function(err, subscriptions) {
-  //   subscriptions.forEach(subscription => {
-  //     var promiseTimeline = ctrlTwitter.getTimeline(
-  //       subscription.channel.screen_name,
-  //       function(error, timeline, response) {
-  //         console.log(timeline);
-  //         timelines.push(timeline);
-  //       }
-  //     );
-  //     timelinePromises.push(promiseTimeline);
-  //   });
-  //   Promise.all(timelinePromises).then(function(values) {
-  //     console.log(values);
-  //     // console.log(timelines);
-  //     console.log("json");
-  //     res.status(200).json(timelines);
-  //   });
-  // });
 };

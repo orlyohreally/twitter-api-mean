@@ -54,3 +54,19 @@ function onListening() {
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   console.log("Listening on " + bind);
 }
+
+require("./api/config/twitter");
+
+client.post(
+  "account_activity/all/dev/webhooks",
+  {
+    url: "https://orlyohreally-twitter-browser.herokuapp.com/twitter/webhooks"
+  },
+  function(error, users, response) {
+    if (!error) {
+      console.log(users);
+    } else {
+      console.log(error);
+    }
+  }
+);

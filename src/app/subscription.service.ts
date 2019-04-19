@@ -22,9 +22,4 @@ export class SubscriptionService {
       channel
     );
   }
-
-  getTimelines(): Observable<any> {
-    console.log('subscribeService: getTimelines');
-    return this.http.get<any>('/api/subscriptions/timelines');
-  }
 }

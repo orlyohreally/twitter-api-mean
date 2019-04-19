@@ -3,6 +3,7 @@ var router = express.Router();
 
 var ctrlTwitterAPI = require("../controllers/twitter-api");
 router.get("/users/search", ctrlTwitterAPI.usersSearch);
+router.get("/twitter/webhooks", ctrlTwitterAPI.usersSearch);
 
 var ctrlSubscription = require("../controllers/subscriptions");
 router.get("/subscriptions/", ctrlSubscription.list);

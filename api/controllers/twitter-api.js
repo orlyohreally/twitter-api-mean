@@ -15,6 +15,10 @@ module.exports.usersSearch = function(req, res) {
   });
 };
 
+module.exports.webhooks = function(req, res) {
+  console.log("webhooks", req.query);
+};
+
 // module.exports.timeline = function(req, res) {
 //   getTimeline(req.body, function(error, timeline, response) {
 //     if (!error) {
@@ -28,12 +32,14 @@ module.exports.usersSearch = function(req, res) {
 //   });
 // };
 
-module.exports.getTimeline = function(screen_name, callback) {
-  return function() {
-    client.get(
-      "statuses/user_timeline",
-      { screen_name: screen_name },
-      callback
-    );
-  };
+module.exports.getTimeline = function(screen_name) {
+  return new Promise(function(resolve, reject) {
+    client.get("statuses/user_timeline", { screen_name: screen_name }, function(
+      err,
+      timeline,
+      response
+    ) {
+      return resolve(timeline);
+    });
+  });
 };
