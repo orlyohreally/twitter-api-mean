@@ -1,11 +1,12 @@
-require("../config/twitter");
+twitter = require("../config/twitter");
+const crypto = require("crypto");
 var mongoose = require("mongoose");
 var Subscription = mongoose.model("Subscription");
 
 module.exports.usersSearch = function(req, res) {
   console.log(req.query);
   var params = req.query;
-  client.get("users/search", params, function(error, users, response) {
+  twitter.client.get("users/search", params, function(error, users, response) {
     if (!error) {
       res.status(200).json(users);
     } else {
@@ -15,9 +16,14 @@ module.exports.usersSearch = function(req, res) {
   });
 };
 
-module.exports.webhooks = function(req, res) {
-  console.log("webhooks", req.query);
-  res.status(200).json({ status: "success" });
+module.exports.webhooks = function(crc_token, consumer_secret) {
+  console.log("webhooks", twitter.client);
+  hmac = crypto
+    .createHmac("sha256", consumer_secret)
+    .update(crc_token)
+    .digest("base64");
+
+  return hmac;
 };
 
 // module.exports.timeline = function(req, res) {

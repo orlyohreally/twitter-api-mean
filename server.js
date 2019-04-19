@@ -55,12 +55,12 @@ function onListening() {
   console.log("Listening on " + bind);
 }
 
-require("./api/config/twitter");
+var twitter = require("./api/config/twitter");
 
-client.post(
+twitter.client.post(
   "account_activity/all/dev/webhooks",
   {
-    url: "https://orlyohreally-twitter-browser.herokuapp.com/twitter/webhooks"
+    url: "https://localhost/api/twitter/webhooks"
   },
   function(error, users, response) {
     if (!error) {
