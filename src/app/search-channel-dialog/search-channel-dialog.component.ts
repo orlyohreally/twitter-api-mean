@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TwitterService } from '../twitter.service';
 import { SubscriptionService } from '../subscription.service';
-import { ChannelSubscription } from '../subscription';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search-channel-dialog.component.html',
@@ -38,17 +38,21 @@ export class SearchChannelDialogComponent implements OnInit {
         }
       });
   }
+
   public onEmptySearch() {
     this.isLoading = false;
     this.errorMessage = '';
   }
+
   public closeDialog() {
     this.dialogRef.close();
   }
+
   public onTyping(event) {
     this.isLoading = true;
     this.searchTextUpdate.next(event);
   }
+
   public onClean() {
     this.search.text = '';
     this.onEmptySearch();

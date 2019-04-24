@@ -9,5 +9,6 @@ var ctrlSubscription = require("../controllers/subscriptions");
 router.get("/subscriptions/", ctrlSubscription.list);
 router.get("/subscriptions/timelines", ctrlSubscription.timelines);
 router.post("/subscriptions/create", ctrlSubscription.create);
+router.delete("/subscriptions/delete/:id", ctrlSubscription.delete);
 
 module.exports = router;

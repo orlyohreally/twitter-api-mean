@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TwitterChannel } from './twitter-channel';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ChannelSubscription } from './subscription';
 
@@ -20,6 +20,13 @@ export class SubscriptionService {
     return this.http.post<TwitterChannel[]>(
       '/api/subscriptions/create',
       channel
+    );
+  }
+
+  unsubscribe(subscription: ChannelSubscription): any {
+    console.log('subscribeService: subscribe', subscription);
+    return this.http.delete(
+      '/api/subscriptions/delete/' + subscription._id + '/'
     );
   }
 }

@@ -8,12 +8,30 @@ module.exports.list = function(req, res) {
 };
 
 module.exports.create = function(req, res) {
-  console.log("create", req.body);
   newSubscription = new Subscription();
   newSubscription.follow = true;
   newSubscription.channel = req.body;
   newSubscription.save();
   res.status(200).json(newSubscription);
+};
+
+module.exports.delete = function(req, res) {
+  console.log("delete", req.params.id);
+  Subscription.findOneAndDelete({ _id: req.params.id }).exec(function(
+    err,
+    subscription
+  ) {
+    if (err) {
+      res.status(404).json(err);
+      return;
+    }
+    console.log(subscription);
+    res.status(200).json({
+      message: `Unsubscribed from channel ${subscription.channel.name}@ ${
+        subscription.channel.screen_name
+      }`
+    });
+  });
 };
 
 var ctrlTwitter = require("./twitter-api");

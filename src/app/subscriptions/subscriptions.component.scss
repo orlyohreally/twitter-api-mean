@@ -10,13 +10,13 @@
 
     .channel {
       margin: 10px;
-      height: 120px;
-    }
+      width: 30%;
 
-    .mat-card-actions {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      .mat-card-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }

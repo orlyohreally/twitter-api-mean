@@ -49,6 +49,15 @@ export class SubscriptionsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
       if (result && result.status === 'success') {
+        this.snackBar.open(
+          `Started following channel ${result.subscription.channel.name}@ ${
+            result.subscription.channel.screen_name
+          }`,
+          null,
+          {
+            duration: 2000
+          }
+        );
         this.subscriptions.push(result.subscription);
       }
     });
@@ -64,14 +73,30 @@ export class SubscriptionsComponent implements OnInit {
       }
     );
   }
-  public remove(subscription: ChannelSubscription) {
+
+  public deactivate(subscription: ChannelSubscription) {
     this.snackBar.open(
-      `Unsubscribe from channel ${subscription.channel.name}@ ${
+      `Stopped following channel ${subscription.channel.name}@ ${
         subscription.channel.screen_name
       }`,
       null,
       {
         duration: 2000
+      }
+    );
+  }
+
+  public remove(i: number) {
+    const subscription = this.subscriptions[i];
+    this.subscriptionService.unsubscribe(subscription).subscribe(
+      res => {
+        this.snackBar.open(res.message, null, {
+          duration: 2000
+        });
+        this.subscriptions.splice(i, 1);
+      },
+      err => {
+        console.log('error', err);
       }
     );
   }

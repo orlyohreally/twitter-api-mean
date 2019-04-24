@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var subscriptionsSchema = new mongoose.Schema({
   channel: {
+    description: String,
     followers_count: String,
     id_str: String,
     name: String,
